@@ -44,26 +44,26 @@ pipeline {
                 stage('Test User Service') {
                     steps {
                         script {
-                            sh '''
-                                docker run -d --name test-user ${DOCKER_HUB_USER}/user-service:${BUILD_NUMBER}
-                                sleep 5
-                                curl -f http://localhost:5000/health || exit 1
-                                docker stop test-user && docker rm test-user
-                            '''
+			sh '''
+			docker run -d --name test-user -p 5000:5000 ${DOCKER_HUB_USER}/user-service:${BUILD_NUMBER}
+			sleep 5
+			curl -f http://localhost:5000/health || exit 1
+			docker stop test-user && docker rm test-user
+			'''
                         }
                     }
                 }
                 stage('Test Order Service') {
                     steps {
                         script {
-                            sh '''
-                                docker run -d --name test-order ${DOCKER_HUB_USER}/order-service:${BUILD_NUMBER}
-                                sleep 5
-                                curl -f http://localhost:3000/health || exit 1
-                                docker stop test-order && docker rm test-order
-                            '''
-                        }
-                    }
+			sh '''
+			    docker run -d --name test-order -p 3000:3000 ${DOCKER_HUB_USER}/order-service:${BUILD_NUMBER}
+			    sleep 5
+			    curl -f http://localhost:3000/health || exit 1
+			    docker stop test-order && docker rm test-order
+			'''                        
+			}
+	            }
                 }
             }
         }
