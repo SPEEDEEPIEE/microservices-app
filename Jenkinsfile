@@ -121,7 +121,7 @@ pipeline {
         }
         failure {
             echo 'Ошибка в одном из сервисов!'
-            sh 'docker-compose down'
+            sh 'docker compose down'
         }
     }
 }
