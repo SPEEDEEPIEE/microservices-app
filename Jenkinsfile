@@ -47,7 +47,7 @@ pipeline {
                             sh '''
                                 docker run -d --name test-user ${DOCKER_HUB_USER}/user-service:${BUILD_NUMBER}
                                 sleep 5
-                                curl -f http://localhost:5000/health || exit 1
+                                curl -f http://10.20.30.31:5000/health || exit 1
                                 docker stop test-user && docker rm test-user
                             '''
                         }
@@ -59,7 +59,7 @@ pipeline {
                             sh '''
                                 docker run -d --name test-order ${DOCKER_HUB_USER}/order-service:${BUILD_NUMBER}
                                 sleep 5
-                                curl -f http://localhost:3000/health || exit 1
+                                curl -f http://10.20.30.31:3000/health || exit 1
                                 docker stop test-order && docker rm test-order
                             '''
                         }
