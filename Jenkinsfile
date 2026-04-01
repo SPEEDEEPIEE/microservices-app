@@ -107,8 +107,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        docker-compose down || true
-                        docker-compose up -d
+                        docker compose down || true
+                        docker compose up -d
                     '''
                 }
             }
